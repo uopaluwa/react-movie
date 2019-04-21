@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Movies from './Movies';
 
 class App extends React.Component {
   render() {
     return (
-      <div id="app">Small beginnings</div>
+      <div id="app">
+        <Movies />
+      </div>
     )
   }
 }
