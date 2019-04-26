@@ -12,7 +12,7 @@ class Movie extends React.Component {
           <img src={poster_base_url + movie.poster_path} alt="movie poster"/>
         </div>
         <p>{movie.title}</p>
-        <p>{movie.release_date.split('-')[0]}</p>
+        <span>{movie.release_date.split('-')[0]}</span>
       </div>
     )
   }
