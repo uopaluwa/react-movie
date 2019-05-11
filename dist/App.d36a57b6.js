@@ -27464,6 +27464,11 @@ function (_React$Component) {
   }
 
   _createClass(Movie, [{
+    key: "shortenMovieTitleString",
+    value: function shortenMovieTitleString(title) {
+      return title.length < 25 ? title : title.substring(0, 25) + '...';
+    }
+  }, {
     key: "render",
     value: function render() {
       var movie = this.props.movie;
@@ -27474,7 +27479,7 @@ function (_React$Component) {
       }, _react.default.createElement("img", {
         src: poster_base_url + movie.poster_path,
         alt: "movie poster"
-      })), _react.default.createElement("p", null, movie.title), _react.default.createElement("span", null, movie.release_date.split('-')[0]));
+      })), _react.default.createElement("p", null, this.shortenMovieTitleString(movie.title)), _react.default.createElement("span", null, movie.release_date.split('-')[0]));
     }
   }]);
 
@@ -30140,9 +30145,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -30159,8 +30164,11 @@ function (_React$Component) {
     _classCallCheck(this, Movies);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Movies).call(this, props));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.state = {
       movies: [],
+      search_string: "",
       error: null
     };
     return _this;
@@ -30169,10 +30177,31 @@ function (_React$Component) {
   _createClass(Movies, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      this.getPopularMovies();
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(event) {
+      this.setState({
+        search_string: event.target.value
+      });
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(event) {
+      event.preventDefault();
+      var search_string = this.state.search_string;
+      search_string ? this.searchForMovie(search_string) : this.getPopularMovies();
+    }
+  }, {
+    key: "searchForMovie",
+    value: function searchForMovie(search_string) {
       var _this2 = this;
 
-      _client.default.get('discover/movie', {
-        sort_by: 'popularity_desc'
+      _client.default.get('search/movie', {
+        params: {
+          query: search_string
+        }
       }).then(function (response) {
         if (response.data && response.data.results) {
           _this2.setState({
@@ -30187,9 +30216,43 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "getPopularMovies",
+    value: function getPopularMovies() {
+      var _this3 = this;
+
+      _client.default.get('discover/movie', {
+        sort_by: 'popularity_desc'
+      }).then(function (response) {
+        if (response.data && response.data.results) {
+          _this3.setState({
+            movies: response.data.results,
+            error: null
+          });
+        }
+      }).catch(function (error) {
+        _this3.setState({
+          error: 'An error occurred while retrieving data.'
+        });
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return _react.default.createElement("div", {
+        className: "movies-container"
+      }, _react.default.createElement("form", {
+        onSubmit: this.handleSubmit
+      }, _react.default.createElement("label", {
+        htmlFor: "movie-search"
+      }, "Search", _react.default.createElement("br", null), _react.default.createElement("input", {
+        id: "movie-search",
+        type: "text",
+        placeholder: "Enter Movie Title",
+        onChange: this.handleChange,
+        value: this.state.search_string
+      }), _react.default.createElement("button", {
+        type: "submit"
+      }, "Search"))), _react.default.createElement("div", {
         id: "movies"
       }, this.state.movies.map(function (movie) {
         return _react.default.createElement(_router.Link, {
@@ -30198,7 +30261,7 @@ function (_React$Component) {
         }, _react.default.createElement(_Movie.default, {
           movie: movie
         }));
-      }));
+      })));
     }
   }]);
 
@@ -30297,21 +30360,28 @@ function (_React$Component) {
       });
       return _react.default.createElement("div", {
         id: "details"
-      }, _react.default.createElement("section", null, _react.default.createElement("div", {
-        className: "poster"
+      }, _react.default.createElement("section", {
+        className: "flex-content"
+      }, _react.default.createElement("div", {
+        className: "poster item-poster"
       }, _react.default.createElement("img", {
         src: poster_base_url + movie.poster_path,
         alt: "movie poster"
-      })), _react.default.createElement("div", null, _react.default.createElement("h1", null, movie.original_title), _react.default.createElement("h2", null, movie.release_date.split('-')[0]), _react.default.createElement("p", null, genres.join(' / ')), _react.default.createElement("p", null, movie.runtime, " mins"), _react.default.createElement("p", null, movie.vote_average, " *"))), _react.default.createElement("section", {
-        className: "production-companies"
+      })), _react.default.createElement("div", {
+        className: "movie-about"
+      }, _react.default.createElement("h2", null, movie.original_title), _react.default.createElement("h3", null, movie.release_date.split('-')[0]), _react.default.createElement("p", null, genres.join(' / ')), _react.default.createElement("p", null, movie.runtime, " mins"), _react.default.createElement("p", null, movie.vote_average, " *"), _react.default.createElement("div", {
+        className: "movie-overview"
+      }, _react.default.createElement("h2", null, "Overview"), _react.default.createElement("p", null, movie.overview)))), _react.default.createElement("section", {
+        className: "flex-content production-companies"
       }, movie.production_companies.map(function (company) {
         return _react.default.createElement("div", {
-          key: company.id
+          key: company.id,
+          className: "logos"
         }, _react.default.createElement("img", {
           src: poster_base_url + company.logo_path,
           alt: "production company logo"
         }));
-      })), _react.default.createElement("section", null, _react.default.createElement("h2", null, "Overview"), _react.default.createElement("p", null, movie.overview)));
+      })));
     }
   }]);
 
@@ -30329,6 +30399,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
+
+var _router = require("@reach/router");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30366,7 +30438,16 @@ function (_React$Component) {
     value: function render() {
       return _react.default.createElement("div", {
         id: "navbar"
-      }, "Navbar");
+      }, _react.default.createElement("div", null, _react.default.createElement(_router.Link, {
+        to: "/",
+        className: "nav-link"
+      }, "Logo")), _react.default.createElement("div", null, _react.default.createElement(_router.Link, {
+        to: "/",
+        className: "nav-link"
+      }, "Home"), _react.default.createElement(_router.Link, {
+        to: "",
+        className: "nav-link"
+      }, "Browse Movies")));
     }
   }]);
 
@@ -30375,7 +30456,7 @@ function (_React$Component) {
 
 var _default = NavBar;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"Footer.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@reach/router":"../node_modules/@reach/router/es/index.js"}],"Footer.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30523,7 +30604,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55596" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57382" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
