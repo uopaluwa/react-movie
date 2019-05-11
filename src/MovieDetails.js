@@ -42,28 +42,28 @@ class MovieDetails extends React.Component {
     const genres = movie.genres.map(genre => genre.name)
     return (
       <div id="details">
-        <section>
-          <div className="poster">
+        <section className="flex-content">
+          <div className="poster item-poster">
             <img src={poster_base_url + movie.poster_path} alt="movie poster"/>
           </div>
-          <div>
-            <h1>{movie.original_title}</h1>
-            <h2>{movie.release_date.split('-')[0]}</h2>
+          <div className="movie-about">
+            <h2>{movie.original_title}</h2>
+            <h3>{movie.release_date.split('-')[0]}</h3>
             <p>{genres.join(' / ')}</p>
             <p>{movie.runtime} mins</p>
             <p>{movie.vote_average} *</p>
+            <div className="movie-overview">
+              <h2>Overview</h2>
+              <p>{movie.overview}</p>
+            </div>
           </div>
         </section>
-        <section className="production-companies">
+        <section className="flex-content production-companies">
           {movie.production_companies.map(company => (
-            <div key={company.id}>
+            <div key={company.id} className="logos">
               <img src={poster_base_url + company.logo_path} alt="production company logo"/>
             </div>
           ))}
-        </section>
-        <section>
-          <h2>Overview</h2>
-          <p>{movie.overview}</p>
         </section>
       </div>
     )
