@@ -1,10 +1,15 @@
 import React from 'react';
+import { Link } from '@reach/router'
 
 class NavBar extends React.Component {
   render() {
     return (
       <div id="navbar">
-        Navbar
+        <div><Link to="/" className="nav-link">Logo</Link></div>
+        <div>
+          <Link to="/" className="nav-link">Home</Link>
+          <Link to="" className="nav-link">Browse Movies</Link>
+        </div>
       </div>
     )
   }
