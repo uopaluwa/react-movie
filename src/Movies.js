@@ -1,8 +1,7 @@
 import React from 'react';
 import axios from './client';
 import Movie from './Movie';
-import { Link } from '@reach/router';
-
+//probably fetch all categories and pass them down through movies
 class Movies extends React.Component {
   constructor(props) {
     super(props)
@@ -78,9 +77,7 @@ class Movies extends React.Component {
         <div id="movies">
           {this.state.movies.map(movie =>
             (
-              <Link to={`/${movie.id}`} key={movie.id}>
-                <Movie movie={movie} />
-              </Link>
+              <Movie movie={movie} key={movie.id} />
             )
           )}
         </div>
