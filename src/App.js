@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Movies from './Movies';
+import Home from './Home';
 import MovieDetails from './MovieDetails';
 import NavBar from './NavBar';
 import Footer from './Footer';
@@ -13,7 +13,7 @@ class App extends React.Component {
       <div id="app">
         <NavBar />
         <Router>
-          <Movies path="/" />
+          <Home path="/" />
           <BrowseMovies path="/browse"/>
           <MovieDetails path="/:movie_id"/>
         </Router>
