@@ -4,6 +4,7 @@ import Movies from './Movies';
 import MovieDetails from './MovieDetails';
 import NavBar from './NavBar';
 import Footer from './Footer';
+import BrowseMovies from './BrowseMovies';
 import { Router } from '@reach/router';
 
 class App extends React.Component {
@@ -13,6 +14,7 @@ class App extends React.Component {
         <NavBar />
         <Router>
           <Movies path="/" />
+          <BrowseMovies path="/browse"/>
           <MovieDetails path="/:movie_id"/>
         </Router>
         <Footer />
