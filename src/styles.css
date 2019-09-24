@@ -112,7 +112,7 @@ a {
 
 .details {
   display: grid;
-  grid-template-columns: 1fr 500px;
+  grid-template-columns: 340px 500px;
   column-gap: 20px;
 }
 
