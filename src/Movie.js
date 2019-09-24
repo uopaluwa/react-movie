@@ -10,6 +10,10 @@ class Movie extends React.Component {
   }
   render() {
     const { movie } = this.props;
+    const releaseYear = movie.release_date ? movie.release_date.split('-')[0] : null;
+    const movieTitle = this.shortenMovieTitleString(movie.title);
+    const movieRating = movie.vote_average ? `${movie.vote_average}/10` : null;
+    //check poster path, if null use a default img to preserve shape of movie components
     return (
       <div className="movie">
         <Link to={`/${movie.id}`}>
@@ -17,14 +21,14 @@ class Movie extends React.Component {
             <img src={poster_base_url + movie.poster_path} alt="movie poster"/>
             <div className="highlights">
               <p>⭐️</p>
-              <p>{movie.vote_average}/10</p>
+              <p>{movieRating}</p>
               <p>Genre</p>
               <button>View Details</button>
             </div>
           </div>
-          <p>{this.shortenMovieTitleString(movie.title)}</p>
+          <p>{movieTitle}</p>
         </Link>
-        <span>{movie.release_date.split('-')[0]}</span>
+        <span>{releaseYear}</span>
       </div>
     )
   }
