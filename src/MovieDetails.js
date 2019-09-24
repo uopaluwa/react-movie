@@ -41,12 +41,12 @@ class MovieDetails extends React.Component {
     const { movie } = this.state;
     const genres = movie.genres.map(genre => genre.name)
     return (
-      <div id="details">
-        <section className="flex-content">
+      <div className="details-container">
+        <section className="details">
           <div className="poster item-poster">
             <img src={poster_base_url + movie.poster_path} alt="movie poster"/>
           </div>
-          <div className="movie-about">
+          <div className="">
             <h2>{movie.original_title}</h2>
             <h3>{movie.release_date.split('-')[0]}</h3>
             <p>{genres.join(' / ')}</p>
@@ -58,7 +58,7 @@ class MovieDetails extends React.Component {
             </div>
           </div>
         </section>
-        <section className="flex-content production-companies">
+        <section className="production-companies">
           {movie.production_companies.map(company => (
             <div key={company.id} className="logos">
               <img src={poster_base_url + company.logo_path} alt="production company logo"/>
