@@ -34,6 +34,7 @@ class Home extends React.Component {
   render() {
     return (
       <div>
+        <h1 className="header-text">Popular Movies</h1>
         <Movies movies={this.state.movies} />
       </div>
     )

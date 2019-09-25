@@ -2,9 +2,7 @@ import React from 'react';
 import axios from './client';
 
 const image_size = 'w300';
-const logo_size = 'w200';
 const poster_base_url = `https://image.tmdb.org/t/p/${image_size}`;
-const logo_base_url = `https://image.tmdb.org/t/p/${logo_size}`;
 
 class MovieDetails extends React.Component {
   constructor(props) {
@@ -41,7 +39,7 @@ class MovieDetails extends React.Component {
     const { movie } = this.state;
     const genres = movie.genres.map(genre => genre.name)
     return (
-      <div className="details-container">
+      <div>
         <section className="details">
           <div className="poster item-poster">
             <img src={poster_base_url + movie.poster_path} alt="movie poster"/>
@@ -57,13 +55,6 @@ class MovieDetails extends React.Component {
               <p>{movie.overview}</p>
             </div>
           </div>
-        </section>
-        <section className="production-companies">
-          {movie.production_companies.map(company => (
-            <div key={company.id} className="logos">
-              <img src={poster_base_url + company.logo_path} alt="production company logo"/>
-            </div>
-          ))}
         </section>
       </div>
     )
