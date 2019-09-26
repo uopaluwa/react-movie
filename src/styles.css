@@ -170,13 +170,14 @@ a {
 
 .paginator {
   display: flex;
+  margin: 0;
+  padding: 0;
   justify-content: center;
   padding-top: 15px;
 }
 
 .selected-page {
   background-color: #5d7;
-  /* color: white; */
 }
 
 .pages {
@@ -227,5 +228,6 @@ a {
 
     .details {
       padding: 0px 10%;
+      grid-template-columns: 340px 1fr;
     }
 }
