@@ -22,7 +22,6 @@ class Movie extends React.Component {
             <div className="highlights">
               <p>⭐️</p>
               <p>{movieRating}</p>
-              <p>Genre</p>
               <button>View Details</button>
             </div>
           </div>
