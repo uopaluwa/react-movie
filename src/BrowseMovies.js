@@ -89,6 +89,7 @@ class BrowseMovies extends React.Component {
     })
   }
   render() {
+    const heading = this.state.totalResults ? `${this.state.totalResults} movies found` : 'No movies found'
     return (
       <div className="browse-container">
         <form onSubmit={this.handleSubmit}>
@@ -97,6 +98,7 @@ class BrowseMovies extends React.Component {
             <button type="submit">Search</button>
           </label>
         </form>
+        <h1 className="header-text">{heading}</h1>
         <Movies movies={this.state.movies} />
         <ReactPaginate 
           onPageChange={this.changePage} 
