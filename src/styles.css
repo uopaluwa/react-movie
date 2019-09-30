@@ -1,20 +1,36 @@
 body {
-  background-color: #444;
+  background-color: #222;
   margin: 0;
   padding: 0;
+  font-family: 'Lato', sans-serif;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 #app {
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: center;
+}
+
+.logo {
+  font-weight: 400;
+  color: white;
+  -webkit-text-fill-color: black; 
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #5d7;
 }
 
 #navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff;
+  border-bottom: 1px solid #5d7;
   width: 100%;
   height: 50px;
   margin-bottom: 15px;
@@ -23,38 +39,53 @@ body {
 #navbar div {
   padding: 0 20px;
 }
+
 .nav-link {
   padding: 0 7px;
   text-decoration: none;
-  color: #777;
 }
 
 #footer {
+  border-top: 1px solid #5d7;
   margin-top: 50px;
-  background-color: #fff;
   width: 100%;
   height: 80px;
+  color: #fff;
+  text-align: center;
 }
 
 .movies-container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 10px;
 }
-.movies-container form {
-  align-self: center;
+
+.browse-container form {
   text-align: center;
   margin-bottom: 15px;
 }
 
-#movies {
-  display: grid;
-  grid-template-columns: repeat(4, 25%);
-  grid-template-rows: auto;
-  grid-column-gap: 20px;
+.browse-container input {
+  padding: 5px;
+  background-color: inherit;
+  border: 1px solid white;
+  border-radius: 3px;
+  color: white;
+  margin-right: 10px;
+}
+
+.browse-container button {
+  padding: 5px;
+  border: none;
+  border-radius: 3px;
+  background-color: #5d7;
+  font-weight: bold;
 }
 
 .poster {
   margin: 0;
+  position: relative;
 }
 
 .poster img {
@@ -68,7 +99,6 @@ body {
 
 .movie {
   margin-top: 15px;
-  color: #fff;
 }
 
 .movie p {
@@ -80,10 +110,46 @@ body {
   color: #777;
 }
 
-.flex-content {
+.header-text {
+  text-align: center;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: 340px 500px;
+  column-gap: 10px;
+}
+
+.highlights {
   display: flex;
-  margin-top: 15px;
-  color: #fff;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  border: 4px solid #5d7;
+  border-radius: 5px;
+  width: 200px;
+  height: 300px;
+  top: 0;
+  opacity: 0;
+}
+
+.highlights p {
+  font-size: larger;
+}
+
+.highlights button {
+  width: 60%;
+  height: 30px;
+  background-color: #5d7;
+  border-color: #5d7;
+  border-radius: 5%;
+  font-size: medium;
+}
+
+.highlights:hover {
+  opacity: 0.8;
+  background-color: #333;
 }
 
 .movie-about {
@@ -99,11 +165,78 @@ body {
   margin-top: 5px;
 }
 
-.production-companies {
-  justify-content: space-evenly;
-  align-items: center;
+.paginator {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  padding-top: 15px;
 }
 
-.logos {
-  /* width: 70px; */
+.selected-page {
+  background-color: #5d7;
+}
+
+.pages {
+  padding: 5px 7px;
+  margin: 0px 4px;
+  border: 1px solid #5d7;
+  list-style-type: none;
+  border-radius: 3px;
+}
+
+@media only screen 
+  and (max-device-width: 480px) {
+    .paginator {
+      flex-wrap: wrap;
+    }
+
+    .pages {
+      margin: 4px 4px;
+    }
+
+    .browse-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .movies-container {
+      grid-template-columns: 1fr;
+    }
+
+    .details {
+      display: grid;
+      grid-template-columns: 1fr;
+      padding: 0px 1rem;
+      row-gap: 10px;
+    }
+}
+
+@media only screen 
+  and (min-device-width: 481px) 
+  and (max-device-width: 767px) {
+    .movies-container {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .details {
+      display: grid;
+      grid-template-columns: 1fr;
+      padding: 0px 1rem;
+      row-gap: 10px;
+    }
+}
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) {
+    .movies-container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .details {
+      padding: 0px 10%;
+      grid-template-columns: 340px 1fr;
+    }
 }

@@ -5,7 +5,7 @@ const movie_api_options = {
   params: {
     include_adult: false,
     include_video: false,
-    api_key: '612eadc02079cdbfdd5b5234bb9bc23b',
+    api_key: process.env.TMDB_API_KEY,
     language: 'en-US'
   },
   version: 3
